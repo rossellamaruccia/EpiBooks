@@ -1,16 +1,17 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import MyNav from "./MyNav"
-import MyFooter from "./MyFooter"
-import Welcome from './Welcome'
-import AllTheBooks from './AllTheBooks'
+import MyNav from "./MyNav.jsx"
+import MyFooter from "./MyFooter.jsx"
+import Welcome from "./Welcome.jsx"
+import BookCards from "./Components/BookCards.jsx"
 
-const Home = function () {
+const App = () => {
   return (
     <>
       <MyNav />
       <Welcome />
-      <AllTheBooks />
+      <BookCards />
       <MyFooter />
     </>
   )
 }
+
+export default App

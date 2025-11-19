@@ -1,16 +1,14 @@
-import { Container } from "react-bootstrap"
+import Container from "react-bootstrap/Container"
 
-const MyFooter = function () {
+const MyFooter = () => {
   return (
-      <>
-          <Container fluid>
-      <img src="" alt="logo"></img>
-      <small>EpiBooks Address</small>
+    <>
+    <Container fluid>
+      <p>EpiBooks Address</p>
       <small>EpiBooks phone number</small>
-              <small>Epibooks creator's credits</small>
-              </Container>
-    </>
-  )
+      <p>Epibooks creator's credits</p>
+    </Container>
+  </>)
 }
 
 export default MyFooter
