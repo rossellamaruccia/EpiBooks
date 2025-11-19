@@ -7,7 +7,7 @@ import SciFiBooks from "../../public/data/scifi.json"
 import SingleBook from "../SingleBook"
 import { Container, Row } from "react-bootstrap"
 
-class BookCards extends Component {
+class BookList extends Component {
   render() {
     return (
       <>
@@ -45,4 +45,4 @@ class BookCards extends Component {
   }
 }
 
-export default BookCards
+export default BookList

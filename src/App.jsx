@@ -1,7 +1,7 @@
 import MyNav from "./MyNav.jsx"
 import MyFooter from "./MyFooter.jsx"
 import Welcome from "./Welcome.jsx"
-import BookCards from "./Components/BookCards.jsx"
+import BookList from "./Components/BookCards.jsx"
 import MyForm from "./Components/myForm.jsx"
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
     <>
       <MyNav />
       <Welcome />
-      <BookCards />
+      <BookList />
       <MyForm />
       <MyFooter />
     </>
