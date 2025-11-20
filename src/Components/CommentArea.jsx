@@ -1,0 +1,46 @@
+import { Component } from "react"
+import { Card } from "react-bootstrap"
+
+class CommentArea extends Component {
+  state = {
+    comments: [],
+  }
+
+  getComments = () => {
+    let id = this.props.asin
+    const myUrl = "https://striveschool-api.herokuapp.com/api/comments/"
+    const myKey =
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTBkYmRjMmY0YmQ0NzAwMTU4NWIxZjEiLCJpYXQiOjE3NjM2NDg0MTYsImV4cCI6MTc2NDg1ODAxNn0.oKSCNefb9N-2U-1FPkbJS5Or45wHZ0YYdwJj4u0HviU"
+    fetch(myUrl + id, { headers: { Authorization: myKey } })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error("Error: " + res.status)
+        }
+      })
+
+      .then((ArrayOfComments) => {
+        console.log(ArrayOfComments)
+        this.setState({ comments: ArrayOfComments})
+      })
+
+      .catch((err) => {
+        console.log("Error:", err)
+      })
+  }
+
+  componentDidMount() {this.getComments()}
+
+  render() {
+    return (
+      <Card.Text id="textArea">
+        {this.state.comments.map((comment) => {
+          comment.comment
+        })}
+      </Card.Text>
+    )
+  }
+}
+
+export default CommentArea
