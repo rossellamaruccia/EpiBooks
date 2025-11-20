@@ -34,9 +34,9 @@ class CommentArea extends Component {
 
   render() {
     return (
-      <Card.Text id="textArea">
+      <Card.Text>
         {this.state.comments.map((comment) => {
-          comment.comment
+          return comment.comment
         })}
       </Card.Text>
     )
