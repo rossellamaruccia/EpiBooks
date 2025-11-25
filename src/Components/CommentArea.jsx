@@ -1,17 +1,19 @@
 import { Component } from "react"
-import { Card } from "react-bootstrap"
+import CommentsList from "./CommentsList"
+import AddComment from "./AddComment"
 
 class CommentArea extends Component {
   state = {
     comments: [],
+    id: "",
   }
 
   getComments = () => {
-    let id = this.props.asin
+    let bookId = this.props.book
     const myUrl = "https://striveschool-api.herokuapp.com/api/comments/"
     const myKey =
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTBkYmRjMmY0YmQ0NzAwMTU4NWIxZjEiLCJpYXQiOjE3NjM2NDg0MTYsImV4cCI6MTc2NDg1ODAxNn0.oKSCNefb9N-2U-1FPkbJS5Or45wHZ0YYdwJj4u0HviU"
-    fetch(myUrl + id, { headers: { Authorization: myKey } })
+    fetch(myUrl + bookId, { headers: { Authorization: myKey } })
       .then((res) => {
         if (res.ok) {
           return res.json()
@@ -22,7 +24,10 @@ class CommentArea extends Component {
 
       .then((ArrayOfComments) => {
         console.log(ArrayOfComments)
-        this.setState({ comments: ArrayOfComments})
+        this.setState({
+          comments: ArrayOfComments,
+          id: bookId,
+        })
       })
 
       .catch((err) => {
@@ -30,15 +35,17 @@ class CommentArea extends Component {
       })
   }
 
-  componentDidMount() {this.getComments()}
+  componentDidUpdate() {
+    this.getComments()
+  }
 
   render() {
     return (
-      <Card.Text>
-        {this.state.comments.map((comment) => {
-          return comment.comment
-        })}
-      </Card.Text>
+      <>
+        <h3>Recensioni</h3>
+        <CommentsList reviews={this.state.comments} />
+        <AddComment asin={this.props.asin} />
+      </>
     )
   }
 }
