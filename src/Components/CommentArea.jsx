@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import CommentsList from "srcComponentsCommentsList.jsx"
+import CommentsList from "./CommentsList.jsx"
 import AddComment from "./AddComment"
 
 const CommentArea = (props) => {
