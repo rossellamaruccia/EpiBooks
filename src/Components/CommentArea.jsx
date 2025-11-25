@@ -1,15 +1,18 @@
-import { Component } from "react"
-import CommentsList from "./CommentsList"
+import { useState, useEffect } from "react"
+import CommentsList from "./CommentsList.jsx"
 import AddComment from "./AddComment"
 
-class CommentArea extends Component {
-  state = {
-    comments: [],
-    id: "",
-  }
+const CommentArea = (props) => {
+  // state = {
+  //   comments: [],
+  //   id: "",
+  // }
 
-  getComments = () => {
-    let bookId = this.props.book
+  const [comments, setComments] = useState()
+  const [id, setID] = useState()
+  let bookId = props.book
+
+  fetchFunction = () => {
     const myUrl = "https://striveschool-api.herokuapp.com/api/comments/"
     const myKey =
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTBkYmRjMmY0YmQ0NzAwMTU4NWIxZjEiLCJpYXQiOjE3NjM2NDg0MTYsImV4cCI6MTc2NDg1ODAxNn0.oKSCNefb9N-2U-1FPkbJS5Or45wHZ0YYdwJj4u0HviU"
@@ -24,10 +27,17 @@ class CommentArea extends Component {
 
       .then((ArrayOfComments) => {
         console.log(ArrayOfComments)
+<<<<<<< HEAD
         this.setState({
           comments: ArrayOfComments,
           id: bookId,
         })
+=======
+        setComments({
+          comments: ArrayOfComments,
+        })
+        setID({ id: bookId })
+>>>>>>> hooks-exercises
       })
 
       .catch((err) => {
@@ -35,6 +45,7 @@ class CommentArea extends Component {
       })
   }
 
+<<<<<<< HEAD
   componentDidUpdate() {
     this.getComments()
   }
@@ -48,6 +59,19 @@ class CommentArea extends Component {
       </>
     )
   }
+=======
+  useEffect(() => {
+    fetchFunction()
+  }, [id])
+
+  return (
+    <>
+      <h3>Recensioni</h3>
+      <CommentsList reviews={comments} />
+      <AddComment asin={props.asin} />
+    </>
+  )
+>>>>>>> hooks-exercises
 }
 
 export default CommentArea
