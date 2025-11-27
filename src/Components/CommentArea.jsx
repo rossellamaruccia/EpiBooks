@@ -1,77 +1,86 @@
-import { useState, useEffect } from "react"
-import CommentsList from "./CommentsList.jsx"
+import { Component } from "react"
+import CommentList from "./CommentsList"
 import AddComment from "./AddComment"
+import Loading from "./Loading"
+import Error from "./Error"
 
-const CommentArea = (props) => {
-  // state = {
-  //   comments: [],
-  //   id: "",
-  // }
-
-  const [comments, setComments] = useState()
-  const [id, setID] = useState()
-  let bookId = props.book
-
-  fetchFunction = () => {
-    const myUrl = "https://striveschool-api.herokuapp.com/api/comments/"
-    const myKey =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTBkYmRjMmY0YmQ0NzAwMTU4NWIxZjEiLCJpYXQiOjE3NjM2NDg0MTYsImV4cCI6MTc2NDg1ODAxNn0.oKSCNefb9N-2U-1FPkbJS5Or45wHZ0YYdwJj4u0HviU"
-    fetch(myUrl + bookId, { headers: { Authorization: myKey } })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        } else {
-          throw new Error("Error: " + res.status)
-        }
-      })
-
-      .then((ArrayOfComments) => {
-        console.log(ArrayOfComments)
-<<<<<<< HEAD
-        this.setState({
-          comments: ArrayOfComments,
-          id: bookId,
-        })
-=======
-        setComments({
-          comments: ArrayOfComments,
-        })
-        setID({ id: bookId })
->>>>>>> hooks-exercises
-      })
-
-      .catch((err) => {
-        console.log("Error:", err)
-      })
+class CommentArea extends Component {
+  state = {
+    comments: [],
+    isLoading: false,
+    isError: false,
   }
 
-<<<<<<< HEAD
-  componentDidUpdate() {
-    this.getComments()
+  // componentDidMount = async () => {
+  //   try {
+  //     let response = await fetch(
+  //       'https://striveschool-api.herokuapp.com/api/comments/' +
+  //         this.props.asin,
+  //       {
+  //         headers: {
+  //           Authorization:
+  //             'Bearer inserisci-qui-il-tuo-token',
+  //         },
+  //       }
+  //     )
+  //     console.log(response)
+  //     if (response.ok) {
+  //       let comments = await response.json()
+  //       this.setState({ comments: comments, isLoading: false, isError: false })
+  //     } else {
+  //       console.log('error')
+  //       this.setState({ isLoading: false, isError: true })
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setState({ isLoading: false, isError: true })
+  //   }
+  // }
+
+  componentDidUpdate = async (prevProps) => {
+    if (prevProps.asin !== this.props.asin) {
+      this.setState({
+        isLoading: true,
+      })
+      try {
+        let response = await fetch(
+          "https://striveschool-api.herokuapp.com/api/comments/" +
+            this.props.asin,
+          {
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTBkYmRjMmY0YmQ0NzAwMTU4NWIxZjEiLCJpYXQiOjE3NjQyNTMwNDYsImV4cCI6MTc2NTQ2MjY0Nn0.JdNkH7LPyw24C_lEh2S3iMuTClaxuJQehExfyzuuH_Q",
+            },
+          }
+        )
+        console.log(response)
+        if (response.ok) {
+          let comments = await response.json()
+          this.setState({
+            comments: comments,
+            isLoading: false,
+            isError: false,
+          })
+        } else {
+          this.setState({ isLoading: false, isError: true })
+        }
+      } catch (error) {
+        console.log(error)
+        this.setState({ isLoading: false, isError: true })
+      }
+    }
   }
 
   render() {
     return (
-      <>
-        <h3>Recensioni</h3>
-        <CommentsList reviews={this.state.comments} />
+      <div className="text-center">
+        {this.state.isLoading && <Loading />}
+        {this.state.isError && <Error />}
         <AddComment asin={this.props.asin} />
-      </>
+        <CommentList commentsToShow={this.state.comments} />
+      </div>
     )
   }
-=======
-  useEffect(() => {
-    fetchFunction()
-  }, [id])
-
-  return (
-    <>
-      <h3>Recensioni</h3>
-      <CommentsList reviews={comments} />
-      <AddComment asin={props.asin} />
-    </>
-  )
->>>>>>> hooks-exercises
 }
 
 export default CommentArea
