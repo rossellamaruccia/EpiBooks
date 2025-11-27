@@ -59,6 +59,7 @@ class AddComment extends Component {
           <Form.Group className="mb-2">
             <Form.Label>Recensione</Form.Label>
             <Form.Control
+             
               type="text"
               placeholder="Inserisci qui il testo"
               value={this.state.comment.comment}
